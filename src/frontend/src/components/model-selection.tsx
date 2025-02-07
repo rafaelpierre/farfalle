@@ -9,12 +9,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LightningBoltIcon, MagicWandIcon } from "@radix-ui/react-icons";
+import { LightningBoltIcon } from "@radix-ui/react-icons";
 import {
   AtomIcon,
   BrainIcon,
   FlameIcon,
-  Rabbit,
   RabbitIcon,
   SettingsIcon,
   SparklesIcon,
@@ -43,62 +42,8 @@ export const modelMap: Record<ChatModel, Model> = {
     value: ChatModel.GPT_4O_MINI,
     smallIcon: <RabbitIcon className="w-4 h-4 text-cyan-500" />,
     icon: <RabbitIcon className="w-5 h-5 text-cyan-500" />,
-  },
-  [ChatModel.GPT_4O]: {
-    name: "Powerful",
-    description: "OpenAI/GPT-4o",
-    value: ChatModel.GPT_4O,
-    smallIcon: <BrainIcon className="w-4 h-4 text-pink-500" />,
-    icon: <BrainIcon className="w-5 h-5 text-pink-500" />,
-  },
-  [ChatModel.LLAMA_3_70B]: {
-    name: "Hyper",
-    description: "Groq/Llama3-70B",
-    value: ChatModel.LLAMA_3_70B,
-    smallIcon: <LightningBoltIcon className="w-4 h-4 text-yellow-500" />,
-    icon: <LightningBoltIcon className="w-5 h-5 text-yellow-500" />,
-  },
-  [ChatModel.LLAMA3]: {
-    name: "Llama3",
-    description: "ollama/llama3.1",
-    value: ChatModel.LLAMA3,
-    smallIcon: <WandSparklesIcon className="w-4 h-4 text-purple-500" />,
-    icon: <WandSparklesIcon className="w-5 h-5 text-purple-500" />,
-  },
-  [ChatModel.GEMMA]: {
-    name: "Gemma",
-    description: "ollama/gemma",
-    value: ChatModel.GEMMA,
-    smallIcon: <SparklesIcon className="w-4 h-4 text-[#449DFF]" />,
-    icon: <SparklesIcon className="w-5 h-5 text-[#449DFF]" />,
-  },
-  [ChatModel.MISTRAL]: {
-    name: "Mistral",
-    description: "ollama/mistral",
-    value: ChatModel.MISTRAL,
-    smallIcon: <AtomIcon className="w-4 h-4 text-[#FF7000]" />,
-    icon: <AtomIcon className="w-5 h-5 text-[#FF7000]" />,
-  },
-  [ChatModel.PHI3_14B]: {
-    name: "Phi3",
-    description: "ollama/phi3:14b",
-    value: ChatModel.PHI3_14B,
-    smallIcon: <FlameIcon className="w-4 h-4 text-green-500" />,
-    icon: <FlameIcon className="w-5 h-5 text-green-500" />,
-  },
-  [ChatModel.CUSTOM]: {
-    name: "Custom",
-    description: "Custom model",
-    value: ChatModel.CUSTOM,
-    smallIcon: <SettingsIcon className="w-4 h-4 text-red-500" />,
-    icon: <SettingsIcon className="w-5 h-5 text-red-500" />,
-  },
+  }
 };
-
-const localModelMap: Partial<Record<ChatModel, Model>> = _.pickBy(
-  modelMap,
-  (_, key) => isLocalModel(key as ChatModel),
-);
 
 const cloudModelMap: Partial<Record<ChatModel, Model>> = _.pickBy(
   modelMap,
@@ -144,44 +89,11 @@ export function ModelSelection() {
         </SelectValue>
       </SelectTrigger>
       <SelectContent className="w-[250px]">
-        <Tabs
-          className="w-full"
-          defaultValue={localMode ? "local" : "cloud"}
-          onValueChange={(value) => {
-            if (value === "local" && !localMode) {
-              toggleLocalMode();
-            } else if (value === "cloud" && localMode) {
-              toggleLocalMode();
-            }
-          }}
-        >
-          <TabsList className="w-full">
-            <TabsTrigger value="cloud" className="flex-1">
-              Cloud
-            </TabsTrigger>
-            <TabsTrigger
-              value="local"
-              disabled={!env.NEXT_PUBLIC_LOCAL_MODE_ENABLED}
-              className="flex-1 disabled:opacity-50"
-            >
-              Local
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="cloud" className="w-full">
-            <SelectGroup className="w-full">
-              {Object.values(cloudModelMap).map((model) => (
-                <ModelItem key={model.value} model={model} />
-              ))}
-            </SelectGroup>
-          </TabsContent>
-          <TabsContent value="local" className="w-full">
-            <SelectGroup className="w-full">
-              {Object.values(localModelMap).map((model) => (
-                <ModelItem key={model.value} model={model} />
-              ))}
-            </SelectGroup>
-          </TabsContent>
-        </Tabs>
+          <SelectGroup className="w-full">
+            {Object.values(cloudModelMap).map((model) => (
+              <ModelItem key={model.value} model={model} />
+            ))}
+          </SelectGroup>
       </SelectContent>
     </Select>
   );

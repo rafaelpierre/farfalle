@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import {
   AgentQueryPlanStream,
   AgentReadResultsStream,
-  AgentSearchFullResponse,
   AgentSearchQueriesStream,
   AgentSearchStep,
   AgentSearchStepStatus,
@@ -27,7 +26,6 @@ import {
 import { useState } from "react";
 import { useConfigStore, useChatStore } from "@/stores";
 import { env } from "../env.mjs";
-import { useRouter } from "next/navigation";
 
 const BASE_URL = env.NEXT_PUBLIC_API_URL;
 

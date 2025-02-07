@@ -2,7 +2,6 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { ArrowUp } from "lucide-react";
-import ProToggle from "./pro-toggle";
 
 import { ModelSelection } from "./model-selection";
 
@@ -28,7 +27,6 @@ const InputBar = ({
           <ModelSelection />
         </div>
         <div className="flex items-center gap-2">
-          <ProToggle />
           <Button
             type="submit"
             variant="default"
@@ -62,7 +60,6 @@ const FollowingUpInput = ({
         />
       </div>
       <div className="flex items-center gap-2">
-        <ProToggle />
         <Button
           type="submit"
           variant="default"
